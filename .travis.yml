@@ -1,0 +1,180 @@
+language: python            
+jobs:
+  include:
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+      arch: amd64
+      os: linux
+      dist: focal
+      python: nightly 
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+      arch: arm64
+      os: linux
+      dist: focal
+      python: nightly 
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+      arch: arm64-graviton2
+      os: linux
+      dist: focal
+      python: nightly
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+      arch: ppc64le
+      os: linux
+      dist: focal
+      python: nightly    
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+      arch: s390x
+      os: linux
+      dist: focal
+      python: nightly       
+    - name: "Python 3.9-dev on Ubuntu Focal 20.04 Linux"
+      os: linux
+      dist: focal
+      python: 3.9-dev 
+    - name: "Python 3.9.1 on Ubuntu Focal 20.04 Linux"
+      os: linux
+      dist: focal
+      python: 3.9.1 
+    - name: "Python 3.9.0 on Ubuntu Focal 20.04 Linux"
+      os: linux
+      dist: focal
+      python: 3.9 
+    - name: "Python 3.8.0 on Ubuntu Focal 20.04 Linux"
+      os: linux
+      dist: focal
+      python: 3.8 
+    - name: "Python 3.7.0 on Ubuntu Focal 20.04 Linux"
+      os: linux
+      dist: focal
+      python: 3.7      
+    - name: "Python 3.6.0 on Ubuntu Focal 20.04 Linux"
+      os: linux
+      dist: focal
+      python: 3.6    
+    - name: "Python 3.5.0 on Ubuntu Focal 20.04 Linux"
+      os: linux
+      dist: focal
+      python: 3.5        
+    - name: "Python nightly on Ubuntu Bionic 18.04 Linux"
+      os: linux
+      dist: bionic
+      python: nightly 
+    - name: "Python 3.9-dev on Ubuntu Bionic 18.04 Linux"
+      os: linux
+      dist: bionic
+      python: 3.9-dev 
+    - name: "Python 3.9.1 on Ubuntu Bionic 18.04 Linux"
+      os: linux
+      dist: bionic
+      python: 3.9.1 
+    - name: "Python 3.9.0 on Ubuntu Bionic 18.04 Linux"
+      os: linux
+      dist: bionic
+      python: 3.9 
+    - name: "Python 3.8.0 on Ubuntu Bionic 18.04 Linux"
+      os: linux
+      dist: bionic
+      python: 3.8 
+    - name: "Python 3.7.0 on Ubuntu Bionic 18.04 Linux"
+      os: linux
+      dist: bionic
+      python: 3.7      
+    - name: "Python 3.6.0 on Ubuntu Bionic 18.04 Linux"
+      os: linux
+      dist: bionic
+      python: 3.6    
+    - name: "Python 3.5.0 on Ubuntu Bionic 18.04 Linux"
+      os: linux
+      dist: bionic
+      python: 3.5        
+    - name: "Python nightly on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: nightly 
+    - name: "Python 3.9-dev on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: 3.9-dev 
+    - name: "Python 3.9.1 on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: 3.9.1 
+    - name: "Python 3.9.0 on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: 3.9 
+    - name: "Python 3.8.0 on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: 3.8 
+    - name: "Python 3.7.0 on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: 3.7      
+    - name: "Python 3.6.0 on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: 3.6    
+    - name: "Python 3.5.0 on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: 3.5        
+    - name: "Python 3.4.0 on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: 3.4  
+    - name: "Python nightly on Ubuntu Trusty 14.04 Linux"
+      os: linux
+      dist: trusty
+      python: nightly 
+    - name: "Python 3.6.0 on Ubuntu Trusty 14.04 Linux"
+      os: linux
+      dist: trusty
+      python: 3.6    
+    - name: "Python 3.5.0 on Ubuntu Trusty 14.04 Linux"
+      os: linux
+      dist: trusty
+      python: 3.5        
+    - name: "Python 3.4.0 on Ubuntu Trusty 14.04 Linux"
+      os: linux
+      dist: trusty
+      python: 3.4
+    - name: "Python nightly on Ubuntu Precise 12.04 Linux"
+      os: linux
+      dist: precise
+      python: nightly 
+    - name: "Python 3.6.0 on Ubuntu Precise 12.04 Linux"
+      os: linux
+      dist: precise
+      python: 3.6    
+    - name: "Python 3.5.0 on Ubuntu Precise 12.04 Linux"
+      os: linux
+      dist: precise
+      python: 3.5        
+    - name: "Python 3.4.0 on Ubuntu Precise 12.04 Linux"
+      os: linux
+      dist: precise
+      python: 3.4       
+    - name: "Python 3.9.1 on macOS"
+      os: osx
+      osx_image: xcode11.2  
+      language: shell       
+    - name: "Python 3.9.1 on Windows"
+      os: windows           
+      language: shell       
+      before_install:
+        - choco install python --version 3.9.1
+        - python -m pip install --upgrade pip
+      env: PATH=/c/Python39:/c/Python39/Scripts:$PATH
+install: pip3 install --upgrade pip  
+script:
+ - python test.py
+after_script:
+  - bash ./telegram_notification.sh
+deploy:
+  provider: releases
+  api_key: $GITHUB_OAUTH_TOKEN
+  file: test.py
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
