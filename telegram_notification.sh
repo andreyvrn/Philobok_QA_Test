@@ -28,6 +28,12 @@ send_msg "
 Travis build *${build_status}!*
 \`Repository:  ${TRAVIS_REPO_SLUG}\`
 \`Branch:      ${TRAVIS_BRANCH}\`
+\`Job Name:      ${TRAVIS_JOB_NAME}\`
+\`Job Number:      ${TRAVIS_JOB_NUMBER}\`
+\`Dist:      ${TRAVIS_DIST}\`
+\`Cpu Arch:      ${TRAVIS_CPU_ARCH}\`
+\`Python Version:      ${TRAVIS_PYTHON_VERSION}\`
+
 *Commit Msg:*
 ${TRAVIS_COMMIT_MESSAGE}
 [Job Log here](${TRAVIS_JOB_WEB_URL})
