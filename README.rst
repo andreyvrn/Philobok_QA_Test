@@ -1,5 +1,5 @@
 dev test
 ----------
 
-.. image:: https://travis-ci.com/andreyvrn/dev_test.svg?branch=main
-    :target: https://travis-ci.com/andreyvrn/dev_test
+.. image:: https://travis-ci.org/andreyvrn/dev_test.svg?branch=master
+    :target: https://travis-ci.org/andreyvrn/dev_test

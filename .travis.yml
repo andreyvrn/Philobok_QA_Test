@@ -1,27 +1,27 @@
 language: python            
 jobs:
   include:
-    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux amd64"
       arch: amd64
       os: linux
       dist: focal
       python: nightly 
-    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux arm64"
       arch: arm64
       os: linux
       dist: focal
       python: nightly 
-    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux arm64-graviton2"
       arch: arm64-graviton2
       os: linux
       dist: focal
       python: nightly
-    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux ppc64le"
       arch: ppc64le
       os: linux
       dist: focal
       python: nightly    
-    - name: "Python nightly on Ubuntu Focal 20.04 Linux"
+    - name: "Python nightly on Ubuntu Focal 20.04 Linux s390x"
       arch: s390x
       os: linux
       dist: focal
