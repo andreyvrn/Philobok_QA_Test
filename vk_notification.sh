@@ -23,18 +23,19 @@ send_msg () {
 # Note that for Markdown, you need to escape any backtick (inline-code)
 # characters, since they're reserved in bash
 send_msg "
-❗Travis build ${build_status}!❗ <br>
-⚠Repository:  ${TRAVIS_REPO_SLUG} <br>
-⚠Branch:      ${TRAVIS_BRANCH} <br>
-⚠Job Name:      ${TRAVIS_JOB_NAME} <br>
-⚠Job Number:      ${TRAVIS_JOB_NUMBER} <br>
-⚠Dist:      ${TRAVIS_DIST} <br>
-⚠Cpu Arch:      ${TRAVIS_CPU_ARCH} <br>
-⚠Python Version:      ${TRAVIS_PYTHON_VERSION} <br>
+Travis build ${build_status} <br>
+⚠Repository: ${TRAVIS_REPO_SLUG} <br>
+⚠Branch: ${TRAVIS_BRANCH} <br>
+⚠Job Name: ${TRAVIS_JOB_NAME} <br>
+⚠Job Number: ${TRAVIS_JOB_NUMBER} <br>
+⚠Dist: ${TRAVIS_DIST} <br>
+⚠Cpu Arch: ${TRAVIS_CPU_ARCH} <br>
+⚠Python Version: ${TRAVIS_PYTHON_VERSION} <br>
 <br>
+⚠Commit Msg: <br>
 ⚒⚒⚒
-Commit Msg: <br>
 ${TRAVIS_COMMIT_MESSAGE} <br>
-Job Log here:(${TRAVIS_JOB_WEB_URL}) <br>
-⚒⚒⚒ <br>
+⚒⚒⚒
+⚠Job Log here:${TRAVIS_JOB_WEB_URL} <br>
+
 "
