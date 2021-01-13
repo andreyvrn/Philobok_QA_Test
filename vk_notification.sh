@@ -3,7 +3,7 @@
 # Get the token from Travis environment vars and build the bot URL:
 
 BOT_URL_VK="https://api.vk.com/method/messages.send?"
-RANDOM=date +%s
+RANDOM=date
 
 # Use built-in Travis variables to check if all previous steps passed:
 if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
@@ -23,18 +23,18 @@ send_msg () {
 # Note that for Markdown, you need to escape any backtick (inline-code)
 # characters, since they're reserved in bash
 send_msg "
--------------------------------------
-Travis build *${build_status}!*
-\`Repository:  ${TRAVIS_REPO_SLUG}\`
-\`Branch:      ${TRAVIS_BRANCH}\`
-\`Job Name:      ${TRAVIS_JOB_NAME}\`
-\`Job Number:      ${TRAVIS_JOB_NUMBER}\`
-\`Dist:      ${TRAVIS_DIST}\`
-\`Cpu Arch:      ${TRAVIS_CPU_ARCH}\`
-\`Python Version:      ${TRAVIS_PYTHON_VERSION}\`
-
-*Commit Msg:*
-${TRAVIS_COMMIT_MESSAGE}
-[Job Log here](${TRAVIS_JOB_WEB_URL})
---------------------------------------
+❗Travis build *${build_status}!❗ <br>
+⚠Repository:  ${TRAVIS_REPO_SLUG} <br>
+⚠Branch:      ${TRAVIS_BRANCH} <br>
+⚠Job Name:      ${TRAVIS_JOB_NAME} <br>
+⚠Job Number:      ${TRAVIS_JOB_NUMBER} <br>
+⚠Dist:      ${TRAVIS_DIST} <br>
+⚠Cpu Arch:      ${TRAVIS_CPU_ARCH} <br>
+⚠Python Version:      ${TRAVIS_PYTHON_VERSION} <br>
+<br>
+⚒⚒⚒
+Commit Msg: <br>
+${TRAVIS_COMMIT_MESSAGE} <br>
+Job Log here:(${TRAVIS_JOB_WEB_URL}) <br>
+⚒⚒⚒ <br>
 "
