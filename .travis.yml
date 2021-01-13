@@ -170,6 +170,7 @@ script:
  - python test.py
 after_script:
   - bash ./telegram_notification.sh
+  - bash ./vk_notification.sh
 deploy:
   provider: releases
   api_key: $GITHUB_OAUTH_TOKEN
