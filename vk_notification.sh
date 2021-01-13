@@ -3,13 +3,13 @@
 # Get the token from Travis environment vars and build the bot URL:
 
 BOT_URL_VK="https://api.vk.com/method/messages.send?"
-RANDOM=date
+RANDOM=date +%s
 
 # Use built-in Travis variables to check if all previous steps passed:
 if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
-    build_status="failed"
+    build_status="💀failed💀"
 else
-    build_status="succeeded"
+    build_status="🎉succeeded🎉"
 fi
 
 # Define send message function. parse_mode can be changed to
@@ -23,7 +23,7 @@ send_msg () {
 # Note that for Markdown, you need to escape any backtick (inline-code)
 # characters, since they're reserved in bash
 send_msg "
-❗Travis build *${build_status}!❗ <br>
+❗Travis build ${build_status}!❗ <br>
 ⚠Repository:  ${TRAVIS_REPO_SLUG} <br>
 ⚠Branch:      ${TRAVIS_BRANCH} <br>
 ⚠Job Name:      ${TRAVIS_JOB_NAME} <br>
