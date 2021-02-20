@@ -30,6 +30,10 @@ jobs:
       os: linux
       dist: focal
       python: 3.9-dev 
+      - name: "Python 3.9.2 on Ubuntu Focal 20.04 Linux"
+      os: linux
+      dist: focal
+      python: 3.9.2 
     - name: "Python 3.9.1 on Ubuntu Focal 20.04 Linux"
       os: linux
       dist: focal
@@ -62,6 +66,10 @@ jobs:
       os: linux
       dist: bionic
       python: 3.9-dev 
+    - name: "Python 3.9.2 on Ubuntu Bionic 18.04 Linux"
+      os: linux
+      dist: bionic
+      python: 3.9.2 
     - name: "Python 3.9.1 on Ubuntu Bionic 18.04 Linux"
       os: linux
       dist: bionic
@@ -94,6 +102,10 @@ jobs:
       os: linux
       dist: xenial
       python: 3.9-dev 
+    - name: "Python 3.9.2 on Ubuntu Xenial 16.04 Linux"
+      os: linux
+      dist: xenial
+      python: 3.9.2
     - name: "Python 3.9.1 on Ubuntu Xenial 16.04 Linux"
       os: linux
       dist: xenial
@@ -154,15 +166,15 @@ jobs:
       os: linux
       dist: precise
       python: 3.4       
-    - name: "Python 3.9.1 on macOS"
+    - name: "Python 3.9.2 on macOS"
       os: osx
       osx_image: xcode11.2  
       language: shell       
-    - name: "Python 3.9.1 on Windows"
+    - name: "Python 3.9.2 on Windows"
       os: windows           
       language: shell       
       before_install:
-        - choco install python --version 3.9.1
+        - choco install python --version 3.9.2
         - python -m pip install --upgrade pip
       env: PATH=/c/Python39:/c/Python39/Scripts:$PATH
 install: pip3 install --upgrade pip  
