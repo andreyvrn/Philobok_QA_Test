@@ -31,4 +31,4 @@ jobs:
     - name: Test python
       run: |
         python test.py
-        vk_notification.sh
+        sh vk_notification.sh
