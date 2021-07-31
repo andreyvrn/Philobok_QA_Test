@@ -17,4 +17,9 @@ send_msg () {
 # characters, since they're reserved in bash
 send_msg "
 🎉 The job was automatically triggered by a ${event_name} event. <br>
+🐧 This job is now running on a ${runner_os} server hosted by GitHub! <br>
+🔎 The name of your branch is ${github_ref} and your repository is ${github.repository}. <br>
+💡 The ${repository_git} repository has been cloned to the runner. <br>
+🖥️ The workflow is now ready to test your code on the runner. <br>
+🍏 This job's status is ${job_status}. <br>
 "
