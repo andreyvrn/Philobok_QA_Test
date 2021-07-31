@@ -32,6 +32,11 @@ jobs:
       env:
           VK_PEER_ID: ${{ secrets.VK_PEER_ID }}
           VK_TOKEN: ${{ secrets.VK_TOKEN }}
+          event_name: ${{ github.event_name }}
+          runner_os: ${{ runner.os }}
+          github_ref: ${{ github.ref }}
+          repository_git: ${{ github.repository }}
+          job_status: ${{ job.status }}
       run: |
         python test.py
         sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN"
