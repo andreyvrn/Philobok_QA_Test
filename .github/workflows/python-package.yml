@@ -39,4 +39,4 @@ jobs:
           job_status: ${{ job.status }}
       run: |
         python test.py
-        sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name"
+        sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$github_ref" "$repository_git" "$job_status"
