@@ -29,6 +29,9 @@ jobs:
         python -m pip install --upgrade pip
         
     - name: Test python
+      env:
+          VK_PEER_ID: ${{ secrets.VK_PEER_ID }}
+          VK_TOKEN: ${{ secrets.VK_TOKEN }}
       run: |
         python test.py
-        sh vk_notification.sh
+        sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN"
