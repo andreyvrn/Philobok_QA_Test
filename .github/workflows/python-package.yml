@@ -32,6 +32,10 @@ jobs:
         python -m pip install --upgrade pip
         
     - name: Test python
+      run: |
+        python test.py
+        
+    - name: Result
       env:
           VK_PEER_ID: ${{ secrets.VK_PEER_ID }}
           VK_TOKEN: ${{ secrets.VK_TOKEN }}
@@ -42,6 +46,5 @@ jobs:
           repository_git: ${{ matrix.python-version }}
           job_status: ${{ job.status }}
       run: |
-        python test.py
         sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status"
         sh telegram_notification.sh "$TELEGRAM_CHAT_ID" "$TELEGRAM_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status"
