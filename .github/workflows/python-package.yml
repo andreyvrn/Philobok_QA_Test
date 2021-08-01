@@ -35,11 +35,13 @@ jobs:
       env:
           VK_PEER_ID: ${{ secrets.VK_PEER_ID }}
           VK_TOKEN: ${{ secrets.VK_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           event_name: ${{ github.event_name }}
           runner_os: ${{ runner.os }}
-          github_ref: ${{ github.ref }}
           repository_git: ${{ matrix.python-version }}
           job_status: ${{ job.status }}
       run: |
         python test.py
-        sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$github_ref" "$repository_git" "$job_status"
+        sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status"
+        sh telegram_notification.sh "$TELEGRAM_CHAT_ID" "$TELEGRAM_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status"
