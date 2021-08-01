@@ -36,7 +36,7 @@ jobs:
           event_name: ${{ github.event_name }}
           runner_os: ${{ runner.os }}
           github_ref: ${{ github.ref }}
-          repository_git: ${{ runner.python-version }}
+          repository_git: ${{ matrix.python-version }}
           job_status: ${{ job.status }}
       run: |
         python test.py
