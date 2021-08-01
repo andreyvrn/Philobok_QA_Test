@@ -36,6 +36,7 @@ jobs:
         python test.py
         
     - name: Result
+      if: ${{ always() }}
       env:
           VK_PEER_ID: ${{ secrets.VK_PEER_ID }}
           VK_TOKEN: ${{ secrets.VK_TOKEN }}
