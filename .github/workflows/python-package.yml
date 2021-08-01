@@ -12,11 +12,12 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on:  ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         python-version: [3.7, 3.8, 3.9]
+        os:  [macos-latest, windows-latest, ubuntu-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -35,7 +36,7 @@ jobs:
           event_name: ${{ github.event_name }}
           runner_os: ${{ runner.os }}
           github_ref: ${{ github.ref }}
-          repository_git: ${{ github.repository }}
+          repository_git: ${{ runner.python-version }}
           job_status: ${{ job.status }}
       run: |
         python test.py
