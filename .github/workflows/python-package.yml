@@ -21,7 +21,25 @@ jobs:
         python-version: [3.9]
         include:
           - arch: aarch64
-            distro: stretch, buster, bullseye, ubuntu16.04, ubuntu18.04, ubuntu20.04, fedora_latest, alpine_latest, archarm_latest
+            distro: stretch
+          - arch: aarch64
+            distro: buster
+          - arch: aarch64
+            distro: bullseye
+          - arch: aarch64
+            distro: ubuntu16.04
+          - arch: aarch64
+            distro: ubuntu18.04
+          - arch: aarch64
+            distro: ubuntu20.04,
+          - arch: aarch64
+            distro: fedora_latest
+          - arch: aarch64
+            distro: alpine_latest
+          - arch: aarch64
+            distro: archarm_latest
+            
+            
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
