@@ -1,5 +1,3 @@
 dev test
 ----------
-
-.. image:: https://travis-ci.com/andreyvrn/dev_test.svg?branch=master
-    :target: https://travis-ci.com/andreyvrn/dev_test
+![example workflow](https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE>/badge.svg)
