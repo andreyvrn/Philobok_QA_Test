@@ -6,12 +6,6 @@ BOT_URL="https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage"
 # Set formatting for the message. Can be either "Markdown" or "HTML"
 PARSE_MODE="Markdown"
 
-# Use built-in Travis variables to check if all previous steps passed:
-if [ $TRAVIS_TEST_RESULT -ne 0 ]; then
-    build_status="failed"
-else
-    build_status="succeeded"
-fi
 
 # Define send message function. parse_mode can be changed to
 # HTML, depending on how you want to format your message:
@@ -24,18 +18,8 @@ send_msg () {
 # Note that for Markdown, you need to escape any backtick (inline-code)
 # characters, since they're reserved in bash
 send_msg "
--------------------------------------
-Travis build *${build_status}!*
-\`Repository:  ${TRAVIS_REPO_SLUG}\`
-\`Branch:      ${TRAVIS_BRANCH}\`
-\`Job Name:      ${TRAVIS_JOB_NAME}\`
-\`Job Number:      ${TRAVIS_JOB_NUMBER}\`
-\`Dist:      ${TRAVIS_DIST}\`
-\`Cpu Arch:      ${TRAVIS_CPU_ARCH}\`
-\`Python Version:      ${TRAVIS_PYTHON_VERSION}\`
-
-*Commit Msg:*
-${TRAVIS_COMMIT_MESSAGE}
-[Job Log here](${TRAVIS_JOB_WEB_URL})
---------------------------------------
+🎉 The job was automatically triggered by a ${event_name} event.
+🐧 This job is now running on a ${runner_os} server hosted by GitHub!
+💡 Python version ${repository_git} .
+🍏 This job's status is ${job_status}.
 "
