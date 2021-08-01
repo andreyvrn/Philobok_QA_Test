@@ -3,7 +3,7 @@
 # Get the token from Travis environment vars and build the bot URL:
 
 BOT_URL_VK="https://api.vk.com/method/messages.send?"
-RANDOM=date
+RANDOM=date + %s
 
 # Define send message function. parse_mode can be changed to
 # HTML, depending on how you want to format your message:
