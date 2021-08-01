@@ -16,10 +16,10 @@ send_msg () {
 # Note that for Markdown, you need to escape any backtick (inline-code)
 # characters, since they're reserved in bash
 send_msg "
-🎉 The job was automatically triggered by a ${event_name} event. <br>
-🐧 This job is now running on a ${runner_os} server hosted by GitHub! <br>
-🔎 The name of your branch is ${github_ref} and your repository is ${repository_git}. <br>
-💡 The ${repository_git} repository has been cloned to the runner. <br>
-🖥️ The workflow is now ready to test your code on the runner. <br>
-🍏 This job's status is ${job_status}. <br>
+🎉 The job was automatically triggered by a ${event_name} event.
+🐧 This job is now running on a ${runner_os} server hosted by GitHub!
+🔎 The name of your branch is ${github_ref} and your repository is ${repository_git}.
+💡 The ${repository_git} repository has been cloned to the runner.
+🖥️ The workflow is now ready to test your code on the runner.
+🍏 This job's status is ${job_status}.
 "
