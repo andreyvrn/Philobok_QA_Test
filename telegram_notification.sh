@@ -17,7 +17,7 @@ send_msg () {
 # Send message to the bot with some pertinent details about the job
 # Note that for Markdown, you need to escape any backtick (inline-code)
 # characters, since they're reserved in bash
-if ${job_status} == "success"; then
+if [[${job_status} == "success"]]; then
             send_msg "
 🎉 The job was automatically triggered by a ${event_name} event.
 🐧 This job is now running on a ${runner_os} server hosted by GitHub!
