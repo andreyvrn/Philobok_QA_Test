@@ -18,9 +18,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ 3.5, 3.6, 3.7, 3.8, 3.9, 3.10.0-beta.1, 3.10.0-beta.2, 3.10.0-beta.3, 3.10.0-beta.4]
+        python-version: [ 3.5, 3.6, 3.7, 3.8, 3.9, 3.9.x, 3.10.0-beta.1, 3.10.0-beta.2, 3.10.0-beta.3, 3.10.0-beta.4]
         os:  [macos-latest, windows-latest, ubuntu-latest, windows-2016, ubuntu-18.04]
-        architecture: [x32,x64]
+        architecture: [x86,x64]
 
     steps:
     - uses: actions/checkout@v2
@@ -48,6 +48,7 @@ jobs:
           runner_os: ${{ runner.os }}
           repository_git: ${{ matrix.python-version }}
           job_status: ${{ job.status }}
+          architecture: ${{ matrix.architecture }}
       run: |
-        sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status"
-        sh telegram_notification.sh "$TELEGRAM_CHAT_ID" "$TELEGRAM_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status"
+        sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status" "architecture"
+        sh telegram_notification.sh "$TELEGRAM_CHAT_ID" "$TELEGRAM_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status" "architecture"
