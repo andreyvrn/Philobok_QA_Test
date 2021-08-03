@@ -50,5 +50,5 @@ jobs:
           job_status: ${{ job.status }}
           architecture: ${{ matrix.architecture }}
       run: |
-        sh vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status" "$architecture"
-        sh telegram_notification.sh "$TELEGRAM_CHAT_ID" "$TELEGRAM_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status" "$architecture"
+        bash vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status" "$architecture"
+        bash telegram_notification.sh "$TELEGRAM_CHAT_ID" "$TELEGRAM_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status" "$architecture"
