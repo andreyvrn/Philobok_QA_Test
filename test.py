@@ -1,5 +1,5 @@
 i = 0
-f = open('text.txt' 'w')
+f = open('text.txt', 'w')
 while i < 20:
     print(i)
     i = i + 5
