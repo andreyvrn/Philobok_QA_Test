@@ -38,11 +38,11 @@ jobs:
         python test.py
         
     - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: text.txt
-          retention-days: 5
+      uses: actions/upload-artifact@v2
+      with:
+        name: my-artifact
+        path: text.txt
+        retention-days: 5
         
     - name: Result
       if: ${{ always() }}
