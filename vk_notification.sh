@@ -1,4 +1,5 @@
 #!/bin/sh
+chcp 65001
 
 # Get the token from Travis environment vars and build the bot URL:
 
