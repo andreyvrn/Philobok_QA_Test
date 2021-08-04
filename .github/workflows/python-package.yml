@@ -18,9 +18,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [3.5, 3.6]
-        os:  [macos-latest, windows-latest, ubuntu-latest, windows-2016, ubuntu-18.04]
-        architecture: [x86,x64]
+        python-version: [3.6]
+        os:  [ubuntu-latest]
+        architecture: [x86]
 
     steps:
     - uses: actions/checkout@v2
@@ -36,6 +36,13 @@ jobs:
     - name: Test python
       run: |
         python test.py
+        
+    - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: text.txt
+          retention-days: 5
         
     - name: Result
       if: ${{ always() }}
