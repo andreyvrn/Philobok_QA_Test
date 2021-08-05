@@ -1,4 +1,4 @@
-i = 0
+i = 5
 f = open('text.txt', 'w')
 while i < 20:
     print(i)
