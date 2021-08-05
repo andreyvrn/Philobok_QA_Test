@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [3.6]
-        os:  [ubuntu-latest, windows-latest]
+        os:  [ubuntu-latest]
         architecture: [x64]
 
     steps:
@@ -43,11 +43,7 @@ jobs:
         name: my-artifact
         path: text.txt
         retention-days: 5
-    - name: Release
-      uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')
-      with:
-        files: text.txt
+        
     - name: Result
       if: ${{ always() }}
       env:
