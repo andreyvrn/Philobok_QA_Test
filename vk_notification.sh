@@ -17,6 +17,7 @@ send_msg () {
 # characters, since they're reserved in bash
 if [ $job_status == "success" ]; then
 send_msg "
+`u{1f525}
 🎉 The job was automatically triggered by a ${event_name} event.
 🐧 This job is now running on a ${runner_os} server hosted by GitHub!
 💡 Python version ${repository_git} .
@@ -25,6 +26,7 @@ send_msg "
 "
 else
  send_msg "
+ `u{1f525}
 😭😭😭😭😭😭
 🎉 The job was automatically triggered by a ${event_name} event.
 🐧 This job is now running on a ${runner_os} server hosted by GitHub!
