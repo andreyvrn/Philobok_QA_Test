@@ -43,7 +43,11 @@ jobs:
         name: my-artifact
         path: text.txt
         retention-days: 5
-        
+    - name: Release
+      uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        files: text.txt
     - name: Result
       if: ${{ always() }}
       env:
