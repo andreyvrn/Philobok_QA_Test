@@ -9,7 +9,6 @@ send_msg () {
 
 if [ $job_status == "success" ]; then
 send_msg "
-${[char]0xf12}
 🎉 The job was automatically triggered by a ${event_name} event.
 🐧 This job is now running on a ${runner_os} server hosted by GitHub!
 💡 Python version ${repository_git} .
@@ -18,7 +17,6 @@ ${[char]0xf12}
 "
 else
  send_msg "
-${[char]0xf12}
 😭😭😭😭😭😭
 🎉 The job was automatically triggered by a ${event_name} event.
 🐧 This job is now running on a ${runner_os} server hosted by GitHub!
