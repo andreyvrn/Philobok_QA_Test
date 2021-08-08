@@ -27,7 +27,7 @@ jobs:
         architecture: [x64]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v0.1
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2.2.2
       with:
@@ -49,7 +49,7 @@ jobs:
         retention-days: 5
         
     - name: Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-release@v0.1
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: text.txt   
