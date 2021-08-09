@@ -1,8 +1,4 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
 name: Python package
-
 on:
   push:
     branches: [ master ]
@@ -11,7 +7,7 @@ on:
   pull_request:
     branches: [ master ]   
   schedule:
-    - cron: '00 00 * * *'  # every day at midnight
+    - cron: '00 00 * * *'
 jobs:
   build:
     runs-on:  ${{ matrix.os }}
@@ -44,7 +40,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
-        files: text.txt   
+        files: text.txt
     - name: Result
       if: ${{ always() }}
       env:
