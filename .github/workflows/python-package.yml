@@ -9,15 +9,11 @@ on:
     tags:
       - 'v*'
   pull_request:
-    branches: [ master ]
-  
-      
+    branches: [ master ]   
   schedule:
     - cron: '00 00 * * *'  # every day at midnight
-
 jobs:
   build:
-
     runs-on:  ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -25,7 +21,6 @@ jobs:
         python-version: [3.6]
         os:  [ubuntu-latest]
         architecture: [x64]
-
     steps:
     - uses: actions/checkout@v2.3.4
     - name: Set up Python ${{ matrix.python-version }}
@@ -35,25 +30,21 @@ jobs:
         architecture: ${{ matrix.architecture }}
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        
+        python -m pip install --upgrade pip        
     - name: Test python
       run: |
-        python test.py
-        
+        python test.py        
     - name: Upload Artifact
       uses: actions/upload-artifact@v2.2.4
       with:
         name: my-artifact
         path: text.txt
-        retention-days: 5
-        
+        retention-days: 5       
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: text.txt   
-        
     - name: Result
       if: ${{ always() }}
       env:
