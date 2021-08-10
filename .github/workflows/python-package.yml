@@ -41,6 +41,11 @@ jobs:
       if: startsWith(github.ref, 'refs/tags/')
       with:
         files: text.txt
+    - name: Docker Push VK Notify
+      uses: andreyvrn/vk-message-action@v1
+      env: 
+          VK_PEER_ID: ${{ secrets.VK_PEER_ID }}
+          VK_TOKEN: ${{ secrets.VK_TOKEN }} 
     - name: Result
       if: ${{ always() }}
       env:
