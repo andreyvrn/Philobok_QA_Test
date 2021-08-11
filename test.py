@@ -1,6 +1,6 @@
 i = 0
 f = open('text.txt', 'w')
-while i < 200:
+while i < 2000:
     print(i)
     i = i + 5
 print("finish")
