@@ -36,6 +36,9 @@ jobs:
         name: my-artifact
         path: text.txt
         retention-days: 1
+    - name: python version
+      id: python_version
+      run:  echo "::set-output name=c::$((python --version))"
     - name: Release
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
@@ -50,7 +53,7 @@ jobs:
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           event_name: ${{ github.event_name }}
           runner_os: ${{ runner.os }}
-          repository_git: ${{ matrix.python-version }}
+          repository_git:  ${{ steps.python_version.outputs.python_ver }} 
           job_status: ${{ job.status }}
           architecture: ${{ matrix.architecture }}
       run: |
