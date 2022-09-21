@@ -31,7 +31,7 @@ jobs:
       run: |
         python test.py
     - name: Upload Artifact
-      uses: actions/upload-artifact@v3.0.0
+      uses: actions/upload-artifact@v3.1.0
       with:
         name: my-artifact
         path: text.txt
