@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron: '30 15 * * *'
+    - cron: '00 06 * * *'
 jobs:
   build:
     runs-on:  ${{ matrix.os }}
@@ -15,7 +15,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-2022]
-        python-version: ['3.7', '3.8', '3.9', '3.10', '3.x', 'pypy-2.7', 'pypy-3.8']
+        python-version: ['3.x']
         architecture: [x64]
     steps:
     - uses: actions/checkout@v3
@@ -46,8 +46,6 @@ jobs:
       env:
           VK_PEER_ID: ${{ secrets.VK_PEER_ID }}
           VK_TOKEN: ${{ secrets.VK_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           event_name: ${{ github.event_name }}
           runner_os: ${{ runner.os }}
           repository_git: ${{ matrix.python-version }} 
@@ -55,4 +53,3 @@ jobs:
           architecture: ${{ matrix.architecture }}
       run: |
         bash vk_notification.sh "$VK_PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status" "$architecture"
-        bash telegram_notification.sh "$TELEGRAM_CHAT_ID" "$TELEGRAM_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status" "$architecture"
