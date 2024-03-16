@@ -9,7 +9,7 @@ BOT_URL_VK="https://api.vk.com/method/messages.send?"
 # HTML, depending on how you want to format your message:
 send_msg () {
     curl -s -X POST ${BOT_URL_VK} -d peer_id=$PEER_ID \
-        -d random_id=0 -d message="$1" -d access_token=$VK_TOKEN -d v=5.131
+        -d random_id=0 -d message="$1" -d access_token=$VK_TOKEN -d v=5.199
 }
 
 # Send message to the bot with some pertinent details about the job
