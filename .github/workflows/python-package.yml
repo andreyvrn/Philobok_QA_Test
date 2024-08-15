@@ -31,7 +31,7 @@ jobs:
       run: |
         python test.py
     - name: Upload Artifact
-      uses: actions/upload-artifact@v4.3.1
+      uses: actions/upload-artifact@v4.3.3
       with:
         name: my-artifact--${{ matrix.os }}
         path: text.txt
