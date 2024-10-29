@@ -1,36 +1,38 @@
 #!/bin/sh
+# -*- coding: UTF-8 -*-
 
-# Get the token from Travis environment vars and build the bot URL:
-
+# URL API для отправки сообщений
 BOT_URL_VK="https://api.vk.com/method/messages.send?"
 
-
-# Define send message function. parse_mode can be changed to
-# HTML, depending on how you want to format your message:
+# Функция для отправки сообщения
 send_msg () {
-    curl -s -X POST ${BOT_URL_VK} -d peer_id=$PEER_ID \
-        -d random_id=0 -d message="$1" -d access_token=$VK_TOKEN -d v=5.199
+    curl -s -X POST "${BOT_URL_VK}" \
+        -d peer_id="$PEER_ID" \
+        -d random_id=0 \
+        -d message="$1" \
+        -d access_token="$VK_TOKEN" \
+        -d v=5.199
 }
 
-# Send message to the bot with some pertinent details about the job
-# Note that for Markdown, you need to escape any backtick (inline-code)
-# characters, since they're reserved in bash
-if [ $job_status == "success" ]; then
-send_msg "
-🎉 The job was automatically triggered by a ${event_name} event.
-🐧 This job is now running on a ${runner_os} server hosted by GitHub!
-💡 Python version ${repository_git} .
-🖥️ Architecture: ${architecture} .
-🍏 This job's status is ${job_status}.
-"
+# Определение версии Python и архитектуры, если они не заданы
+PYTHON_VERSION=$(python --version 2>&1) # Извлечение версии Python
+RUNNER_ARCH=$(uname -m) # Определение архитектуры
+
+# Проверка статуса и формирование сообщения
+if [ "$job_status" = "success" ]; then
+    STATUS_EMOJI="🎉"
 else
- send_msg "
-😭😭😭😭😭😭
-🎉 The job was automatically triggered by a ${event_name} event.
-🐧 This job is now running on a ${runner_os} server hosted by GitHub!
-💡 Python version ${repository_git} .
-🖥️ Architecture: ${Architecture} .
-🚨 This job's status is ${job_status}.
-😭😭😭😭😭😭
-"
+    STATUS_EMOJI="🚨😭"
 fi
+
+# Формирование сообщения для отправки
+MESSAGE="
+${STATUS_EMOJI} Job triggered by a ${GITHUB_EVENT_NAME} event.
+🐧 OS: ${RUNNER_OS}
+💻 Python Version: ${PYTHON_VERSION}
+🖥️ Architecture: ${RUNNER_ARCH}
+Status: ${job_status}.
+"
+
+# Отправка сообщения
+send_msg "$MESSAGE"
