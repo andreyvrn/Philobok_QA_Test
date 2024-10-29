@@ -16,8 +16,6 @@ send_msg () {
 }
 
 # Загрузка переменных из окружения
-PEER_ID="${PEER_ID}"
-VK_TOKEN="${VK_TOKEN}"
 event_name="${GITHUB_EVENT_NAME}"
 runner_os="${RUNNER_OS}"
 python_version="${REPOSITORY_GIT}"
