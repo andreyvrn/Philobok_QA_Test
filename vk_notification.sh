@@ -15,13 +15,6 @@ send_msg () {
         -d v=5.199
 }
 
-# Загрузка переменных из окружения
-event_name="${GITHUB_EVENT_NAME}"
-runner_os="${RUNNER_OS}"
-python_version="${REPOSITORY_GIT}"
-job_status="${JOB_STATUS}"
-architecture="${ARCHITECTURE}"
-
 # Определение смайликов статуса
 if [ "$job_status" = "success" ]; then
     STATUS_EMOJI="🎉"
