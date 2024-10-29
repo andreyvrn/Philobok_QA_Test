@@ -1,55 +1,72 @@
 name: Python package
 on:
   push:
-    branches: [ master ]
+    branches: [master]
     tags:
       - 'v*'
   pull_request:
-    branches: [ master ]
+    branches: [master]
   schedule:
     - cron: '00 06 * * *'
+
 jobs:
   build:
-    runs-on:  ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-2022]
-        python-version: ['3.x']
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.14.0-alpha.1']
         architecture: [x64]
+
     steps:
     - uses: actions/checkout@v4
+
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5.3.0
       with:
         python-version: ${{ matrix.python-version }}
         architecture: ${{ matrix.architecture }}
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-    - name: Test python
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run tests
       run: |
         python test.py
-    - name: Upload Artifact
+
+    - name: Upload Artifact (Optional)
+      if: ${{ success() }}
       uses: actions/upload-artifact@v4.4.3
       with:
         name: my-artifact--${{ matrix.os }}
         path: text.txt
         retention-days: 1
+
     - name: Release
+      if: ${{ github.ref_type == 'tag' && success() }}
       uses: softprops/action-gh-release@v2
-      if: startsWith(github.ref, 'refs/tags/')
       with:
         files: text.txt
-    - name: Result
+
+    - name: Send Result Notification
       if: ${{ always() }}
-      env:
-          PEER_ID: ${{ secrets.PEER_ID }}
-          VK_TOKEN: ${{ secrets.VK_TOKEN }}
-          event_name: ${{ github.event_name }}
-          runner_os: ${{ runner.os }}
-          repository_git: ${{ matrix.python-version }} 
-          job_status: ${{ job.status }}
-          architecture: ${{ matrix.architecture }}
       run: |
-        bash vk_notification.sh "$PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$repository_git" "$job_status" "$architecture"
+        echo "PEER_ID=${{ secrets.PEER_ID }}" >> $GITHUB_ENV
+        echo "VK_TOKEN=${{ secrets.VK_TOKEN }}" >> $GITHUB_ENV
+        echo "GITHUB_EVENT_NAME=${{ github.event_name }}" >> $GITHUB_ENV
+        echo "RUNNER_OS=${{ runner.os }}" >> $GITHUB_ENV
+        echo "REPOSITORY_GIT=${{ matrix.python-version }}" >> $GITHUB_ENV
+        echo "JOB_STATUS=${{ job.status }}" >> $GITHUB_ENV
+        echo "ARCHITECTURE=${{ matrix.architecture }}" >> $GITHUB_ENV
+        bash vk_notification.sh
