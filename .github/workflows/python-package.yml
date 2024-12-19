@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [master]
   schedule:
-    - cron: '00 06 * * *'
+    - cron: '00 05 * * *'
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.14.0-alpha.2']
+        python-version: ['3.14.0-alpha.3']
         architecture: [x64]
 
     steps:
