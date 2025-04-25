@@ -1,9 +1,9 @@
 name: Python package
+
 on:
   push:
     branches: [master]
-    tags:
-      - 'v*'
+    tags: ['v*']
   pull_request:
     branches: [master]
   schedule:
@@ -20,55 +20,65 @@ jobs:
         architecture: [x64]
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5.6.0
-      with:
-        python-version: ${{ matrix.python-version }}
-        architecture: ${{ matrix.architecture }}
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5.6.0
+        with:
+          python-version: ${{ matrix.python-version }}
+          architecture: ${{ matrix.architecture }}
 
-    - name: Cache dependencies
-      uses: actions/cache@v4.2.3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+      - name: Cache dependencies
+        uses: actions/cache@v4.2.3
+        with:
+          path: |
+            ~/.cache/pip
+            ~/Library/Caches/pip
+            ${{ env.LOCALAPPDATA }}\pip\Cache
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-    - name: Install dependencies
-      shell: bash
-      run: |
-        python -m pip install --upgrade pip
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -e
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Run tests
-      run: |
-        python test.py
+      - name: Run tests
+        run: |
+          set -e
+          python test.py
 
-    - name: Upload Artifact (Optional)
-      if: ${{ success() }}
-      uses: actions/upload-artifact@v4.6.2
-      with:
-        name: my-artifact--${{ matrix.os }}
-        path: text.txt
-        retention-days: 1
+      - name: Upload Artifact (Optional)
+        if: ${{ success() }}
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: my-artifact--${{ matrix.os }}
+          path: text.txt
+          retention-days: 1
 
-    - name: Release
-      if: ${{ github.ref_type == 'tag' && success() }}
-      uses: softprops/action-gh-release@v2.2.2
-      with:
-        files: text.txt
+      - name: Publish GitHub Release
+        if: ${{ github.ref_type == 'tag' && success() }}
+        uses: softprops/action-gh-release@v2.2.2
+        with:
+          files: text.txt
 
-    - name: Result
-      if: ${{ always() }}
-      env:
+      - name: Post Result Notification
+        if: ${{ always() }}
+        env:
           PEER_ID: ${{ secrets.PEER_ID }}
           VK_TOKEN: ${{ secrets.VK_TOKEN }}
           event_name: ${{ github.event_name }}
           runner_os: ${{ runner.os }}
-          python_version: ${{ matrix.python-version }} 
+          python_version: ${{ matrix.python-version }}
           job_status: ${{ job.status }}
           architecture: ${{ matrix.architecture }}
-      run: |
-        bash vk_notification.sh "$PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$python_version" "$job_status" "$architecture"
+        run: |
+          if [ -f "vk_notification.sh" ]; then
+            bash vk_notification.sh "$PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$python_version" "$job_status" "$architecture" || echo "VK notification failed (non-critical)."
+          else
+            echo "vk_notification.sh not found, skipping VK notification."
+          fi
+        shell: bash
