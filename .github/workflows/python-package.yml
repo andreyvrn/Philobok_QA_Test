@@ -40,13 +40,14 @@ jobs:
             ${{ runner.os }}-pip-
 
       - name: Install dependencies
-        shell: bash
+        shell: bash              # ← bash на всех ОС, включая Windows
         run: |
           set -e
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run tests
+        shell: bash              # ← bash, поэтому set -e работает
         run: |
           set -e
           python test.py
@@ -67,6 +68,7 @@ jobs:
 
       - name: Post Result Notification
         if: ${{ always() }}
+        shell: bash              # ← тоже bash, чтобы проверка файла была одинаковой
         env:
           PEER_ID: ${{ secrets.PEER_ID }}
           VK_TOKEN: ${{ secrets.VK_TOKEN }}
@@ -77,8 +79,8 @@ jobs:
           architecture: ${{ matrix.architecture }}
         run: |
           if [ -f "vk_notification.sh" ]; then
-            bash vk_notification.sh "$PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$python_version" "$job_status" "$architecture" || echo "VK notification failed (non-critical)."
+            bash vk_notification.sh "$PEER_ID" "$VK_TOKEN" "$event_name" "$runner_os" "$python_version" "$job_status" "$architecture" \
+            || echo "VK notification failed (non-critical)."
           else
             echo "vk_notification.sh not found, skipping VK notification."
           fi
-        shell: bash
