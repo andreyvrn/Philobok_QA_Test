@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.14.0-alpha.7']
+        python-version: ['3.14.0b1']
         architecture: [x64]
 
     steps:
