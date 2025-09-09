@@ -3,7 +3,7 @@
 # -*- coding: UTF-8 -*-
 
 # URL для API ВКонтакте
-BOT_URL_VK="https://api.vk.com/method/messages.send?"
+BOT_URL_VK="https://api.vk.ru/method/messages.send?"
 
 # Функция отправки уведомлений
 send_msg () {
