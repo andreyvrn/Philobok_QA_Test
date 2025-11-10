@@ -62,7 +62,7 @@ jobs:
 
       - name: Publish GitHub Release
         if: ${{ github.ref_type == 'tag' && success() }}
-        uses: softprops/action-gh-release@v2.4.1
+        uses: softprops/action-gh-release@v2.4.2
         with:
           files: text.txt
 
